@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>You are doctor?</p>
+        <p v-if="xacdinh">Yes</p>
+        <p v-else>No</p>
+        <button v-on:click="xacdinh=!xacdinh">Change</button>
+        <template v-if='xacdinh'>
+            <div>Menu1</div>
+            <div>Menu1</div>
+            <div>Menu1</div>
+            <div>Menu1</div>
+        </template>
+        <p v-show="xacdinh">Test v-show</p>
+
+        <ul>
+            <li v-for="(menu,i) in menus">{{menu}} với index là:{{i}}</li>
+        </ul>
+        <template v-for="(menu, index) in menus">
+            <h3>{{menu}}</h3>
+            <p>{{index}}</p>
+        </template>
+        <br>
+        <div v-for="person in persons">
+            <!-- <div v-for="(value,key,index) in person">
+                <div>{{key}}:{{value}}</div>
+            </div> -->
+            <div>{{person.name}}-{{person.age}}</div>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            xacdinh: true,
+            menus:['Home','About','Blog','Contacts'],
+            persons:[
+                {name:'abc',age:"18",class:"A1"},
+                { name: 'abcd', age: "20", class: "A2" },
+                { name: 'abce', age: "23", class: "A3" }
+            ]
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="obj">
+        <!-- <input type="text" v-on:input="changValue"> -->
+        <!-- <p v-html="TestMaHtml"></p>
+        <p v-once>{{noidung}}-{{updatenoidung()}}</p>
+        <p>{{noidung}}-{{updatenoidung()}}</p>
+        <a v-bind:href="link">Google</a> -->
+        <!-- <p>{{sayHello()}}</p> -->
+        <div v-on:mouseover="tinhToaDo">
+            <p>Bấm vào tăng số</p>
+            <button v-on:click="tangso">Ấn vào</button>
+            <button v-on:click="so++">Ấn vào js</button>
+            <p>{{so}}</p>
+            <p>{{so>20?"Bạn vượt qua giới hạn":"Bạn vẫn nằm trong giới hạn"}}</p>
+            <p>Tọa độ: {{x}}/{{y}}</p>
+            <span v-on:mouseover.stop="">Dừng tọa độ</span>
+            <!-- <span v-on:mouseover="dungToaDo">Dừng tọa độ</span> -->
+        </div>
+        <div>
+            <!-- <input type="text" v-on:keyup.enter="banPhim"> -->
+          Bàn phim:  <input type="text" @keyup="banPhim">
+        </div>
+    </div>
+
+    <div id="app">
+        <input type="text" v-model="name">
+        <p>{{name}}</p>
+    </div>
+<!-- Tối ưu code thông qua phương thức computed -->
+    <div id="app2">
+        <!-- <p>Giá trị: {{tanga()}}</p>
+        <p>Giá trị:{{tangb()}}</p> -->
+        <p>Giá trị: {{tanga}}</p>
+        <p>Giá trị:{{tangb}}</p>
+        <button v-on:click="a++">tăng a</button>
+        <button v-on:click="b++">tăng b</button>
+    </div>
+<!-- Watch -->
+    <div id="app3">
+        <p>{{diem}}</p>
+    </div>
+    <!-- Shorhand với vuejs -->
+    <div id="app4">
+        <!-- <button v-on:click="ChangeLink">Đổi link</button> -->
+        <button @click="ChangeLink">Đổi link</button>
+        <a v-bind:href="link">Link</a>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#obj",
+        data:{
+            noidung: "Hello",
+            link: "google.com",
+            TestMaHtml: "<a href='facebook.com'>Facebook</a>",
+            so: 0,
+            x: 0,
+            y:0,
+        },
+        methods:{
+            changValue: function(event){
+                this.noidung = event.target.value;
+            },
+            sayHello: function(){
+                document.write(this.noidung);
+            },
+            updatenoidung: function(){
+                this.noidung = "Nội dung update";
+                return this.noidung;
+            },
+            tangso: function(){
+                this.so++;
+            },
+            tinhToaDo: function(event){
+                this.x = event.clientX;
+                this.y = event.clientY;
+            },
+            // dungToaDo: function(event){
+            //     // console.log(event);
+            //     event.stopPropagation();
+            // }
+            banPhim: function(){
+                alert('Hello');
+            }
+
+        }
+    });
+
+    new Vue({
+        el:"#app",
+        data:{
+            name: "Truong",
+        },
+        methods:{
+
+        }
+    });
+
+    new Vue({
+        el:"#app2",
+        data:{
+            a:0,
+            b:0,
+        },
+        computed:{
+            tanga: function () {
+                console.log('Goi a');
+                return this.a;
+            },
+            tangb: function () {
+                console.log('Goi b');
+                return this.b;
+            }
+        },
+        methods:{
+            // tanga: function(){
+            //     console.log('Goi a');
+            //     return this.a;
+            // },
+            // tangb: function () {
+            //     console.log('Goi b');
+            //     return this.b;
+            // }
+        }
+    });
+
+    var app3 = new Vue({
+        el:"#app3",
+        data:{
+            diem: "Điểm nhập vào là 7 diem",
+        },
+        watch:{
+        diem: function(newValue){
+            console.log('Điểm đã được nhập là 7 rồi');
+        }
+    }
+    });
+    app3.diem = "Điểm nhập là 8 diem";
+
+    new Vue({
+        el:"#app4",
+        data:{
+            link:"facebook.com",
+        },
+        methods:{
+            ChangeLink: function(){
+                this.link="google.com";
+            }
+        }
+    })
+</script>
+</html>
